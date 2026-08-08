@@ -29,7 +29,7 @@ const getRealKeys = () => {
 const attemptCallWithKey = async (apiKey, history, newPrompt) => {
     const genAI = new GoogleGenerativeAI(apiKey);
     // Sesuai permintaan: menggunakan Gemini 3.1 Pro (diambil dari preview yg tersedia)
-    const model = genAI.getGenerativeModel({ model: "gemini-3.1-pro-preview" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const chat = model.startChat({
         history: history,
@@ -46,7 +46,7 @@ const attemptCallWithKey = async (apiKey, history, newPrompt) => {
 export const callImoAI = async (chatContext, messageHistory, newPrompt) => {
     const keys = getRealKeys();
     if (keys.length === 0) {
-        return "?? Mohon maaf, API Key imo_ai belum dikonfigurasi di sistem.";
+        return "Mohon maaf, API Key imo_ai belum dikonfigurasi di sistem.";
     }
 
     // Konversi riwayat pesan ke format Gemini
@@ -83,5 +83,6 @@ export const callImoAI = async (chatContext, messageHistory, newPrompt) => {
     }
 
     // Jika semua API Key di-loop tapi gagal
-    return "?? Maaf, semua API Key imo_ai saat ini sedang mengalami limit atau gangguan. Silakan coba lagi nanti.";
+    return "Maaf, semua API Key imo_ai saat ini sedang mengalami limit atau gangguan. Silakan coba lagi nanti.";
 };
+

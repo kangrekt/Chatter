@@ -392,7 +392,7 @@ const ChatRoom = ({ chat, onBack, currentUser, isFriend }) => {
           return {
             id: m.id,
             text: m.text,
-            sender: m.sender === currentUser ? 'me' : 'them',
+            sender: m.sender === currentUser ? 'me' : (m.sender === 'imo_ai' ? 'imo_ai' : 'them'),
             time: new Date(rawDate).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Jakarta' }).replace(/\./g, ':'),
             rawDate: rawDate,
             status: msgStatus,
@@ -798,9 +798,19 @@ const ChatRoom = ({ chat, onBack, currentUser, isFriend }) => {
         <div key={msg.id + '-' + index} style={{
           alignSelf: msg.sender === 'me' ? 'flex-end' : 'flex-start',
           maxWidth: '80%',
-          position: 'relative'
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: '8px'
         }}
         >
+          {msg.sender === 'imo_ai' && (
+            <img 
+              src="https://api.dicebear.com/7.x/bottts/svg?seed=imo_ai" 
+              alt="AI" 
+              style={{ width: '28px', height: '28px', borderRadius: '50%', flexShrink: 0, marginTop: '2px', background: '#1e293b' }}
+            />
+          )}
           <div style={{
             background: isEmojiOnly ? 'transparent' : (msg.sender === 'me' ? '#005c4b' : (msg.sender === 'imo_ai' ? '#1e293b' : '#202c33')),
             color: msg.sender === 'imo_ai' ? '#38bdf8' : '#e9edef',
